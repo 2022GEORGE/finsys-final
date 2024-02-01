@@ -1605,11 +1605,27 @@ def ewaybill_index(request):
             terms = Fin_Payment_Terms.objects.all()
             noti = Fin_CNotification.objects.filter(status = 'New',Company_id = com)
             n = len(noti)
-            return render(request,'company/ewaybill.html',{'allmodules':allmodules,'com':com,'data':data,'terms':terms,'noti':noti,'n':n})  
+            return render(request,'company/eway/fin_ewaybill.html',{'allmodules':allmodules,'com':com,'data':data,'terms':terms,'noti':noti,'n':n})  
         else:
             com = Fin_Staff_Details.objects.get(Login_Id = s_id)
             allmodules = Fin_Modules_List.objects.get(company_id = com.company_id,status = 'New')
-            return render(request,'company/ewaybill.html',{'allmodules':allmodules,'com':com,'data':data})
+            return render(request,'company/eway/fin_ewaybill.html',{'allmodules':allmodules,'com':com,'data':data})
+def create_new_ewaybill(request):
+    if 's_id' in request.session:
+        s_id = request.session['s_id']
+        data = Fin_Login_Details.objects.get(id = s_id)
+        if data.User_Type == "Company":
+            com = Fin_Company_Details.objects.get(Login_Id = s_id)
+            allmodules = Fin_Modules_List.objects.get(Login_Id = s_id,status = 'New')
+            terms = Fin_Payment_Terms.objects.all()
+            noti = Fin_CNotification.objects.filter(status = 'New',Company_id = com)
+            n = len(noti)
+            return render(request,'company/eway/fin_new_ewaybill.html',{'allmodules':allmodules,'com':com,'data':data,'terms':terms,'noti':noti,'n':n})  
+        else:
+            com = Fin_Staff_Details.objects.get(Login_Id = s_id)
+            allmodules = Fin_Modules_List.objects.get(company_id = com.company_id,status = 'New')
+            return render(request,'company/eway/fin_new_ewaybill.html',{'allmodules':allmodules,'com':com,'data':data})
+    
 
     
 

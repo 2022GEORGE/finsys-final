@@ -85,6 +85,7 @@ urlpatterns = [
     path('DClients_overview/<id>',views.Fin_DClients_overview,name='Fin_DClients_overview'),
     path('DClient_remove/<id>',views.Fin_DClient_remove,name='Fin_DClient_remove'),
     path('ewaybill_index',views.ewaybill_index,name='ewaybill_index'),
+    path('create_new_ewaybill',views.create_new_ewaybill,name='create_new_ewaybill'),
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
 ]
